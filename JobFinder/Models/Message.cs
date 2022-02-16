@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JobFinder.Interfaces
+namespace JobFinder
 {
-    public interface IMessenger
+    public class Message
     {
-        public void SendMessage(Message message);
+        private string _message;
+        public Vacancy vacancy;
     }
-
 }

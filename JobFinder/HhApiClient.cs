@@ -12,5 +12,15 @@ namespace JobFinder
     {
         private const string apiDomain = "";
         private const string ApiKey = "";
+        public string searchQuery;
+
+        public Vacancy[] GetAllVacancies(Dictionary<string, string> keywords)
+        {
+            return null;
+        }
+        public Vacancy GetVacancyDetails(string VacancyId)
+        {
+            return null;
+        }
     }
 }

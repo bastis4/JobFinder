@@ -12,7 +12,6 @@ namespace JobFinder
 
         public string VacancyID { get; set; }
         public string SqlQuery { get; set; }
-
         public string login { get; set; }
         public static string password { get; set; }
         /*
@@ -22,21 +21,17 @@ namespace JobFinder
                     {"pasword", SqlDatabase.password}
                 };*/
 
-        public SqlDatabase()
-        {
+        public SqlDatabase() { }
 
-        }
         #region Methods
         public void InsertIntoDatabase()
         {
             throw new NotImplementedException();
         }
-
         public void ReadFromDatabase()
         {
             throw new NotImplementedException();
         }
-
         public void UpdateDatabase()
         {
             throw new NotImplementedException();

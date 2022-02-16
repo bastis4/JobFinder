@@ -8,5 +8,13 @@ namespace JobFinder.Interfaces
 {
     public interface IHhApiClient
     {
+        public Vacancy[] GetAllVacancies(Dictionary<string, string> keywords)
+        {
+            return null;
+        }
+        public Vacancy GetVacancyDetails(string VacancyId)
+        {
+            return null;
+        }
     }
 }
