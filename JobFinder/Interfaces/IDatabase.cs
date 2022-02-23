@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobFinder.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,10 @@ namespace JobFinder.Interfaces
 {
     public interface IDatabase
     {
-        public void Insert();
-        public void Update();
-        public void Read();
+        public void Insert(Vacancy vacancy);
+        public void Update(Vacancy vacancy);
+        public bool Read(string id);
+        public string[] CheckStatus();
 
     }
 }

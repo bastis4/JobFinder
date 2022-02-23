@@ -40,11 +40,14 @@ namespace JobFinder
         public bool Read(string id)
         {
             throw new NotImplementedException();
+            //vacancy.IsNew = true;
         }
 
         public string[] CheckStatus()
         {
             throw new NotImplementedException();
+            //vacancy.Archived = true;
+            //vacancy.IsNew = false;
         }
         #endregion
 

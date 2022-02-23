@@ -9,13 +9,7 @@ namespace JobFinder.Interfaces
 {
     public interface IHhApiClient
     {
-        public Vacancy[] GetVacancies(Dictionary<string, object> keywords)
-        {
-            throw new NotImplementedException();
-        }
-        public Vacancy GetVacancy(string id)
-        {
-            throw new NotImplementedException();
-        }
+        public Vacancy[] GetVacancies(Dictionary<string, object> keywords);
+        public Vacancy GetVacancy(string id);
     }
 }
