@@ -38,8 +38,9 @@ namespace JobFinder
             foreach(var id in idsToCheck)
             {
                 db.Update(apiClient.GetVacancy(id));
-                telegram.SendEditedVacancy(vacancy);
+                // Отправлять изменения в телеграм?
             }
+            // Расписание в Windows Task Scheduler?
         }
     }
 }
