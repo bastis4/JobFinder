@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobFinder.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,13 @@ namespace JobFinder.Interfaces
 {
     public interface IHhApiClient
     {
-        public Vacancy[] GetAllVacancies(Dictionary<string, string> keywords)
+        public Vacancy[] GetVacancies(Dictionary<string, object> keywords)
         {
-            return null;
+            throw new NotImplementedException();
         }
-        public Vacancy GetVacancyDetails(string VacancyId)
+        public Vacancy GetVacancy(string id)
         {
-            return null;
+            throw new NotImplementedException();
         }
     }
 }

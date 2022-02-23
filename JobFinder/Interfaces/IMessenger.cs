@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobFinder.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,8 @@ namespace JobFinder.Interfaces
 {
     public interface IMessenger
     {
-        public void SendMessage(Message message);
+        public void SendNewVacancy(Vacancy vacancy);
+        public void SendEditedVacancy(Vacancy vacancy);
     }
 
 }

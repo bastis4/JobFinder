@@ -8,9 +8,9 @@ namespace JobFinder.Interfaces
 {
     public interface IDatabase
     {
-        public void InsertIntoDatabase();
-        public void UpdateDatabase();
-        public void ReadFromDatabase();
+        public void Insert();
+        public void Update();
+        public void Read();
 
     }
 }

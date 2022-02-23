@@ -1,4 +1,5 @@
 ﻿using JobFinder.Interfaces;
+using JobFinder.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,17 @@ namespace JobFinder
     {
         private const string apiDomain = "";
         private const string ApiKey = "";
-        public string searchQuery;
+        static HttpClient httpClient = new HttpClient();
 
-        public Vacancy[] GetAllVacancies(Dictionary<string, string> keywords)
+        #region Methods
+        public Vacancy[] GetVacancies(Dictionary<string, object> keywords)
         {
-            return null;
+            throw new NotImplementedException();
         }
-        public Vacancy GetVacancyDetails(string VacancyId)
+        public Vacancy GetVacancy(string id)
         {
-            return null;
+            throw new NotImplementedException();
         }
+        #endregion
     }
 }

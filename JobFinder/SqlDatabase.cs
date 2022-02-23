@@ -1,4 +1,5 @@
 ﻿using JobFinder.Interfaces;
+using JobFinder.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,21 +22,31 @@ namespace JobFinder
                     {"pasword", SqlDatabase.password}
                 };*/
 
-        public SqlDatabase() { }
-
         #region Methods
-        public void InsertIntoDatabase()
+        public void Connect()
         {
             throw new NotImplementedException();
         }
-        public void ReadFromDatabase()
+        public void Insert(Vacancy vacancy)
         {
             throw new NotImplementedException();
         }
-        public void UpdateDatabase()
+
+        public void Update(Vacancy vacancy)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Read(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string[] CheckStatus()
         {
             throw new NotImplementedException();
         }
         #endregion
+
     }
 }
