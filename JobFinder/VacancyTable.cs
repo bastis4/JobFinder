@@ -1,5 +1,5 @@
-﻿using JobFinder.Interfaces;
-using JobFinder.Models;
+﻿using JobFinder.HhApi.Models;
+using JobFinder.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +8,11 @@ using System.Threading.Tasks;
 
 namespace JobFinder
 {
-    public class SqlDatabase : IDatabase
+    public class VacancyTable : IDatabase
     {
 
-        public string VacancyID { get; set; }
-        public string SqlQuery { get; set; }
-        public string login { get; set; }
-        public static string password { get; set; }
-        /*
-                public Dictionary<string, string> AuthorisationParams = new Dictionary<string, string>()
-                {
-                    {"login", SqlDatabase.login},
-                    {"pasword", SqlDatabase.password}
-                };*/
+        public string connectionString;
+        public VacancyTable(string connectionString) { this.connectionString = connectionString; }
 
         #region Methods
         public void Connect()
@@ -37,17 +29,14 @@ namespace JobFinder
             throw new NotImplementedException();
         }
 
-        public bool Read(string id)
+        public bool Read(int id)
         {
             throw new NotImplementedException();
-            //vacancy.IsNew = true;
         }
 
         public string[] CheckStatus()
         {
             throw new NotImplementedException();
-            //vacancy.Archived = true;
-            //vacancy.IsNew = false;
         }
         #endregion
 

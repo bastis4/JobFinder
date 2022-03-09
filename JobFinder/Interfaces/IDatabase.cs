@@ -1,4 +1,4 @@
-﻿using JobFinder.Models;
+﻿using JobFinder.HhApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace JobFinder.Interfaces
     {
         public void Insert(Vacancy vacancy);
         public void Update(Vacancy vacancy);
-        public bool Read(string id);
+        public bool Read(int id);
         public string[] CheckStatus();
 
     }

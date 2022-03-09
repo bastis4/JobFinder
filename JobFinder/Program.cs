@@ -1,4 +1,5 @@
 ﻿
+using JobFinder.HhApi.Models;
 using JobFinder.Models;
 using System.Reflection;
 
@@ -8,17 +9,16 @@ namespace JobFinder
     {
         public static void Main()
         {
-            Query searchVacancy = new Query()
+            var searchVacancy = new VacancyQuery()
             {
-                text = "C# разработчик",
-                area = "Москва"
+                Description = "C# разработчик",
+                Area = "Москва"
             };
-            var keywords = searchVacancy.QueryToKeywords();
-
+            
             var apiClient = new HhApiClient();
             var allVacancies = apiClient.GetVacancies(keywords);
 
-            var db = new SqlDatabase();
+            var db = new VacancyTable();
             db.Connect();
 
             var telegram = new TelegramBot();

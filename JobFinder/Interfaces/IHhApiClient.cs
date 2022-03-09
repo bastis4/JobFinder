@@ -1,4 +1,5 @@
-﻿using JobFinder.Models;
+﻿using JobFinder.HhApi.Models;
+using JobFinder.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace JobFinder.Interfaces
 {
     public interface IHhApiClient
     {
-        public Vacancy[] GetVacancies(Dictionary<string, object> keywords);
+        public Vacancy[] GetVacancies(string url);
         public Vacancy GetVacancy(string id);
     }
 }
