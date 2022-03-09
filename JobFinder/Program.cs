@@ -1,6 +1,6 @@
 ﻿
+using JobFinder.HhApi;
 using JobFinder.HhApi.Models;
-using JobFinder.Models;
 using System.Reflection;
 
 namespace JobFinder
@@ -16,31 +16,16 @@ namespace JobFinder
             };
             
             var apiClient = new HhApiClient();
-            var allVacancies = apiClient.GetVacancies(keywords);
+            var allVacancies = apiClient.GetVacancies(searchVacancy);
 
-            var db = new VacancyTable();
+            var db = new VacancyTable("fsgfdsgsdfgdfsg");
             db.Connect();
 
             var telegram = new TelegramBot();
 
-            foreach (var vacancy in allVacancies)
-            {
-                if (!db.Read(vacancy.Id))
-                {
-                    db.Insert(vacancy);
-                    telegram.SendNewVacancy(vacancy);
-                }
-                else db.Update(vacancy);
-                telegram.SendEditedVacancy(vacancy);
-            }
-
-            var idsToCheck = db.CheckStatus();
-            foreach(var id in idsToCheck)
-            {
-                db.Update(apiClient.GetVacancy(id));
-                // Отправлять изменения в телеграм?
-            }
-            // Расписание в Windows Task Scheduler?
+            var manager = new VacancyManager();
+            manager.VacancyProcess(allVacancies);
+            manager.UpdateStatus();
         }
     }
 }

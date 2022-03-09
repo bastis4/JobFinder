@@ -11,8 +11,8 @@ namespace JobFinder.Interfaces
     {
         public void Insert(Vacancy vacancy);
         public void Update(Vacancy vacancy);
-        public bool Read(int id);
-        public string[] CheckStatus();
+        public bool Get(int id);
+        public int[] GetActiveVacancyIds();
 
     }
 }

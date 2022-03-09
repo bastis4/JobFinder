@@ -13,15 +13,17 @@ namespace JobFinder.HhApi
     {
         private const string apiDomain = "";
         private const string ApiKey = "";
-        UrlBuilder urlBuilder;
         static HttpClient httpClient = new HttpClient();
+        VacancyQuery query;
+        UrlBuilder urlBuilder = new UrlBuilder();
 
         #region Methods
-        public Vacancy[] GetVacancies(string url)
+        public Vacancy[] GetVacancies(VacancyQuery query)
         {
+            urlBuilder.GetUrlVacanciesQuery(query);
             throw new NotImplementedException();
         }
-        public Vacancy GetVacancy(string id)
+        public Vacancy GetVacancy(int id)
         {
             throw new NotImplementedException();
         }

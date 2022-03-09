@@ -11,8 +11,15 @@ namespace JobFinder
     public class VacancyTable : IDatabase
     {
 
-        public string connectionString;
-        public VacancyTable(string connectionString) { this.connectionString = connectionString; }
+        public readonly string connectionString = "";
+        public VacancyTable(string connectionString) 
+        {
+            if (connectionString == null)
+            {
+                throw new ArgumentNullException("Пустое соединение");
+            }
+            this.connectionString = connectionString; 
+        }
 
         #region Methods
         public void Connect()
@@ -29,12 +36,12 @@ namespace JobFinder
             throw new NotImplementedException();
         }
 
-        public bool Read(int id)
+        public bool Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public string[] CheckStatus()
+        public int[] GetActiveVacancyIds()
         {
             throw new NotImplementedException();
         }

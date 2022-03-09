@@ -1,5 +1,5 @@
-﻿using JobFinder.Interfaces;
-using JobFinder.Models;
+﻿using JobFinder.HhApi.Models;
+using JobFinder.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace JobFinder
         {
             throw new NotImplementedException();
         }
-        public void SendEditedVacancy(Vacancy vacancy)
+        public void SendUpdatedVacancy(Vacancy vacancy)
         {
             throw new NotImplementedException();
         }

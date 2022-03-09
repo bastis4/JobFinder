@@ -9,7 +9,7 @@ namespace JobFinder.HhApi.Models
     public class UrlBuilder
     {
         private readonly string _url = "hgfdhdh";
-        public string GetUrl(VacancyQuery query)
+        public string GetUrlVacanciesQuery(VacancyQuery query)
         {
             var parameters = "";
             var queryParams = new Dictionary<string, object>()
@@ -28,6 +28,10 @@ namespace JobFinder.HhApi.Models
                 parameters += param.Key + "=" + param.Value + "&";
             }
             return _url + "?" + parameters;
+        }
+        public string GetUrlVacancy(int id)
+        {
+            return _url + "/" + id;
         }
     }
 }
