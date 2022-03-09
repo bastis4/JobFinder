@@ -18,13 +18,13 @@ namespace JobFinder
             var apiClient = new HhApiClient();
             var allVacancies = apiClient.GetVacancies(searchVacancy);
 
-            var db = new VacancyTable("fsgfdsgsdfgdfsg");
-            db.Connect();
+            var repository = new VacancyRepository("fsgfdsgsdfgdfsg");
+            repository.Connect();
 
             var telegram = new TelegramBot();
 
-            var manager = new VacancyManager();
-            manager.VacancyProcess(allVacancies);
+            var manager = new VacancyManager(repository, telegram, apiClient);
+            manager.InsertOrUpdate(allVacancies);
             manager.UpdateStatus();
         }
     }

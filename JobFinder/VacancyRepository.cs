@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace JobFinder
 {
-    public class VacancyTable : IDatabase
+    public class VacancyRepository : IDatabase
     {
 
         public readonly string connectionString = "";
-        public VacancyTable(string connectionString) 
+        public VacancyRepository(string connectionString) 
         {
             if (connectionString == null)
             {
@@ -30,17 +30,14 @@ namespace JobFinder
         {
             throw new NotImplementedException();
         }
-
         public void Update(Vacancy vacancy)
         {
             throw new NotImplementedException();
         }
-
         public bool Get(int id)
         {
             throw new NotImplementedException();
         }
-
         public int[] GetActiveVacancyIds()
         {
             throw new NotImplementedException();

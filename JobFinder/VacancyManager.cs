@@ -10,30 +10,38 @@ namespace JobFinder
 {
     public class VacancyManager
     {
-        VacancyTable vacancyTable;
+        VacancyRepository vacancyRepository;
         TelegramBot telegram;
         HhApiClient apiClient;
-        public void VacancyProcess(Vacancy[] vacancies)
+        public VacancyManager(VacancyRepository repository, TelegramBot telegram, HhApiClient apiClient)
+        {
+            this.vacancyRepository = repository; 
+            this.telegram = telegram;
+            this.apiClient = apiClient;
+        }
+        public void InsertOrUpdate(Vacancy[] vacancies)
         {
             foreach (var vacancy in vacancies)
             {
-                if (!vacancyTable.Get(vacancy.HhId))
+                if (!vacancyRepository.Get(vacancy.HhId))
                 {
-                    vacancyTable.Insert(vacancy);
+                    vacancyRepository.Insert(vacancy);
                     telegram.SendNewVacancy(vacancy);
                 }
-                else vacancyTable.Update(vacancy);
-                telegram.SendUpdatedVacancy(vacancy);
+                else
+                {
+                    vacancyRepository.Update(vacancy);
+                    telegram.SendUpdatedVacancy(vacancy);
+                }
             }
         }
         public void UpdateStatus()
         {
-            var idsToUpdate = vacancyTable.GetActiveVacancyIds();
+            var idsToUpdate = vacancyRepository.GetActiveVacancyIds();
             foreach (var id in idsToUpdate)
             {
-                vacancyTable.Update(apiClient.GetVacancy(id));
-            }
-            
+                vacancyRepository.Update(apiClient.GetVacancy(id));
+            }         
         }
     }
 }
