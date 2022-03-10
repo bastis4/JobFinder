@@ -35,13 +35,5 @@ namespace JobFinder
                 }
             }
         }
-        public void UpdateStatus()
-        {
-            var idsToUpdate = vacancyRepository.GetActiveVacancyIds();
-            foreach (var id in idsToUpdate)
-            {
-                vacancyRepository.Update(apiClient.GetVacancy(id));
-            }         
-        }
     }
 }

@@ -19,13 +19,11 @@ namespace JobFinder
             var allVacancies = apiClient.GetVacancies(searchVacancy);
 
             var repository = new VacancyRepository("fsgfdsgsdfgdfsg");
-            repository.Connect();
 
             var telegram = new TelegramBot();
 
             var manager = new VacancyManager(repository, telegram, apiClient);
             manager.InsertOrUpdate(allVacancies);
-            manager.UpdateStatus();
         }
     }
 }

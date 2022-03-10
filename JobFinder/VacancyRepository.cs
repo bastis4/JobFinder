@@ -22,10 +22,6 @@ namespace JobFinder
         }
 
         #region Methods
-        public void Connect()
-        {
-            throw new NotImplementedException();
-        }
         public void Insert(Vacancy vacancy)
         {
             throw new NotImplementedException();
