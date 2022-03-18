@@ -9,7 +9,7 @@ namespace JobFinder.HhApi
 {
     public class UrlBuilder
     {
-        private readonly string _url = "hgfdhdh";
+        private readonly string _url = "https://api.hh.ru/vacancies";
         public string GetUrlVacanciesQuery(VacancyQuery query)
         {
             var parameters = "";

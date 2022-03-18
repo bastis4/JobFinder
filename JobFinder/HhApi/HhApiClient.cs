@@ -11,8 +11,6 @@ namespace JobFinder.HhApi
     public class HhApiClient : IHhApiClient
 
     {
-        private const string apiDomain = "";
-        private const string ApiKey = "";
         static HttpClient httpClient = new HttpClient();
         VacancyQuery query;
         UrlBuilder urlBuilder = new UrlBuilder();
