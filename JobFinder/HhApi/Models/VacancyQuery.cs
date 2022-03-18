@@ -32,15 +32,14 @@ namespace JobFinder.HhApi.Models
         public string OrderBy { get; set; }
         public string SortPointLatitude { get; set; }
         public string SortPointLongtitude{ get; set; }
-        public string IsClustered { get; set; }
-        public string HasSearchArguments { get; set; }
+        //public string IsClustered { get; set; }
+        //public string HasSearchArguments { get; set; }
         public string PerPage { get; set; }
         public string Page { get; set; }
-        public string NoFormattedQuery { get; set; }
+        //public string NoFormattedQuery { get; set; }
         public string Premium { get; set; }
-        public string HasResponsesCount { get; set; }
+        //public string HasResponsesCount { get; set; }
         public string PartTime { get; set; }
         public string ProfessionalRole { get; set; }
-
     }
 }
