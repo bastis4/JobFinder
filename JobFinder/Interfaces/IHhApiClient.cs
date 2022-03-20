@@ -11,5 +11,6 @@ namespace JobFinder.Interfaces
     {
         public Vacancy[] GetVacancies(VacancyQuery query);
         public Vacancy GetVacancy(int id);
+        public FoundVacancies GetAndParseResponse(VacancyQuery query);
     }
 }

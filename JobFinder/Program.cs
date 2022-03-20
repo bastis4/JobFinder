@@ -11,8 +11,8 @@ namespace JobFinder
         {
             var searchVacancy = new VacancyQuery()
             {
-                Description = "C# разработчик",
-                Area = "Москва"
+                Description = ".net",
+                Area = "1",
             };
             
             var apiClient = new HhApiClient();

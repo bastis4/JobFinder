@@ -82,8 +82,8 @@ namespace JobFinder.HhApi.Models
         public string street { get; set; }
         public string building { get; set; }
         public object description { get; set; }
-        public float lat { get; set; }
-        public float lng { get; set; }
+        public float? lat { get; set; }
+        public float? lng { get; set; }
         public string raw { get; set; }
         public Metro metro { get; set; }
         public Metro_Stations[] metro_stations { get; set; }

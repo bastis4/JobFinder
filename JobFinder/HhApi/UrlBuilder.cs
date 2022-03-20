@@ -20,6 +20,7 @@ namespace JobFinder.HhApi
                 { "experience", query.Experience},
                 { "employment", query.Employment},
                 { "schedule", query.Schedule},
+                { "area", query.Area },
                 { "metro", query.Metro},
                 { "specialization", query.Specialization},
                 { "industry", query.Industry},
@@ -45,7 +46,11 @@ namespace JobFinder.HhApi
                 { "professional_role", query.ProfessionalRole}
 
             };
-            var requestUrl = QueryHelpers.AddQueryString(_url, queryParams);
+            var queryParamsWithoutNull = (from x in queryParams
+                           where x.Value != null
+                           select x).ToDictionary(x => x.Key, x => x.Value);
+
+            var requestUrl = QueryHelpers.AddQueryString(_url, queryParamsWithoutNull) ;
             return requestUrl;
         }
         public string GetUrlVacancy(int id)
