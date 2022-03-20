@@ -9,7 +9,7 @@ namespace JobFinder.Interfaces
 {
     public interface IHhApiClient
     {
-        public Vacancy[] GetVacancies(VacancyQuery query);
+        public List<Vacancy> GetVacancies(VacancyQuery query);
         public Vacancy GetVacancy(int id);
         public FoundVacancies GetAndParseResponse(VacancyQuery query);
     }

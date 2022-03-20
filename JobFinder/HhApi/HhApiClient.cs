@@ -13,18 +13,28 @@ namespace JobFinder.HhApi
 
     {
         static HttpClient httpClient = new HttpClient();
-
-        //VacancyQuery query;
         UrlBuilder urlBuilder = new UrlBuilder();
 
         #region Methods
-        public Vacancy[] GetVacancies(VacancyQuery query)
+        public List<Vacancy> GetVacancies(VacancyQuery query)
         {
+            var vacancies = new List<Vacancy>();
+
             var pagesCount = GetAndParseResponse(query).pages;
             for (int i = 0; i < pagesCount; i++)
             {
                 query.Page = i.ToString();
-                GetAndParseResponse(query);
+                var foundVacancies = GetAndParseResponse(query);
+                foreach(var foundVacancy in foundVacancies.items)
+                {
+                    var vacancy = new Vacancy();
+                    {
+                        vacancy.Name = foundVacancy.name;
+
+                    }
+                    vacancies.Add(vacancy);
+                }
+
             }
             throw new NotImplementedException();
         }

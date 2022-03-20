@@ -19,7 +19,7 @@ namespace JobFinder
             this.telegram = telegram;
             this.apiClient = apiClient;
         }
-        public void InsertOrUpdate(Vacancy[] vacancies)
+        public void InsertOrUpdate(List<Vacancy> vacancies)
         {
             foreach (var vacancy in vacancies)
             {
