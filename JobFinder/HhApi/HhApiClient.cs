@@ -30,13 +30,29 @@ namespace JobFinder.HhApi
                     var vacancy = new Vacancy();
                     {
                         vacancy.Name = foundVacancy.name;
-
+                        vacancy.HhId = Int32.Parse(foundVacancy.id);
+                        vacancy.Location = foundVacancy.area.name;
+                        vacancy.MaxSalary = Convert.ToDecimal(foundVacancy.salary.from);
+                        vacancy.MinSalary = Convert.ToDecimal(foundVacancy.salary.to);
+                        vacancy.Currency = foundVacancy.salary.currency;
+                        vacancy.IsGross = foundVacancy.salary.gross;
+                        vacancy.Address = foundVacancy.address.raw;
+                        vacancy.MetroStation = foundVacancy.address.metro.station_name;
+                        vacancy.PublishDate = foundVacancy.published_at;
+                        vacancy.IsArchived = foundVacancy.archived;
+                        vacancy.LinkToApply = foundVacancy.apply_alternate_url;
+                        vacancy.Link = foundVacancy.alternate_url;
+                        vacancy.EmployerName = foundVacancy.employer.name;
+                        vacancy.EmployerLink = foundVacancy.employer.alternate_url;
+                        vacancy.Requirement = foundVacancy.snippet.requirement;
+                        vacancy.Responsibility = foundVacancy.snippet.responsibility;
+                        vacancy.Schedule = foundVacancy.schedule.name;
                     }
                     vacancies.Add(vacancy);
                 }
 
             }
-            throw new NotImplementedException();
+            return vacancies;
         }
 
         public Vacancy GetVacancy(int id)
