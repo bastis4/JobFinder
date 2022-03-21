@@ -34,10 +34,6 @@ namespace JobFinder
         {
             throw new NotImplementedException();
         }
-        public int[] GetActiveVacancyIds()
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
     }
