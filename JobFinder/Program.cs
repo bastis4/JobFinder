@@ -18,7 +18,7 @@ namespace JobFinder
             var apiClient = new HhApiClient();
             var allVacancies = apiClient.GetVacancies(searchVacancy);
 
-            var repository = new VacancyRepository("fsgfdsgsdfgdfsg");
+            var repository = new VacancyRepository();
 
             var telegram = new TelegramBot();
 

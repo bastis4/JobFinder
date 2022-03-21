@@ -5,23 +5,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Npgsql;
 
 namespace JobFinder
 {
     public class VacancyRepository : IDatabase
     {
 
-        public readonly string connectionString = "";
-        public VacancyRepository(string connectionString) 
+        static readonly string _connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=enter;Database=JobsDB";
+        static NpgsqlConnection m_conn = new NpgsqlConnection(GetConnectionString(_connectionString));
+
+        /*public VacancyRepository(string connectionString)
         {
-            if (connectionString == null)
+            if (_connectionString == null)
             {
                 throw new ArgumentNullException("Пустое соединение");
             }
-            this.connectionString = connectionString; 
-        }
+            this._connectionString = connectionString;
+        }*/
 
         #region Methods
+        private static string GetConnectionString(string postgreSqlConnectionString)
+        {
+            NpgsqlConnectionStringBuilder connBuilder = new()
+            {
+                ConnectionString = postgreSqlConnectionString
+            };
+
+            string dbName = connBuilder.Database;
+
+            var masterConnection = postgreSqlConnectionString.Replace(dbName, "postgres");
+
+            using (NpgsqlConnection connection = new(masterConnection))
+            {
+                connection.Open();
+                var checkIfExistsCommand = new NpgsqlCommand($"SELECT 1 FROM pg_catalog.pg_database WHERE datname = '{dbName}'", connection);
+                var result = checkIfExistsCommand.ExecuteScalar();
+
+                if (result == null)
+                {
+                    var command = new NpgsqlCommand($"CREATE DATABASE \"{dbName}\"", connection);
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            postgreSqlConnectionString = masterConnection.Replace("Database=postgres", "Database=" + dbName);
+
+            return postgreSqlConnectionString;
+        }
         public void Insert(Vacancy vacancy)
         {
             throw new NotImplementedException();

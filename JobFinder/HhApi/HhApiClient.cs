@@ -90,7 +90,7 @@ namespace JobFinder.HhApi
             throw new NotImplementedException();
         }
 
-        public FoundVacancies GetAndParseResponse(VacancyQuery query)
+        private FoundVacancies GetAndParseResponse(VacancyQuery query)
         {
             FoundVacancies vacancies = null;
             var requestUrl = urlBuilder.GetUrlVacanciesQuery(query);
@@ -106,7 +106,7 @@ namespace JobFinder.HhApi
             }
             return vacancies;
         }
-        public bool CheckIfPropertyExists(object obj, string propertyName)
+        private bool CheckIfPropertyExists(object obj, string propertyName)
         {
             return obj.GetType().GetProperty(propertyName) != null;
         }
