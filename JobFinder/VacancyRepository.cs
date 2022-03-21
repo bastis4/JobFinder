@@ -13,7 +13,10 @@ namespace JobFinder
     {
 
         static readonly string _connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=enter;Database=JobsDB";
-        static NpgsqlConnection m_conn = new NpgsqlConnection(GetConnectionString(_connectionString));
+        static NpgsqlConnection connection = new NpgsqlConnection(GetConnectionString(_connectionString));
+        static NpgsqlCommand createTableCommand = new NpgsqlCommand(
+               "CREATE TABLE IF NOT EXISTS table1 (id SERIAL PRIMARY KEY, name VARCHAR(255), price INT)"
+               , connection);
 
         /*public VacancyRepository(string connectionString)
         {
