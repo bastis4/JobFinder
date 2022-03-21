@@ -12,20 +12,20 @@ namespace JobFinder
     public class VacancyRepository : IDatabase
     {
 
-        static readonly string _connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=enter;Database=JobsDB";
-        static NpgsqlConnection connection = new NpgsqlConnection(GetConnectionString(_connectionString));
-        static NpgsqlCommand createTableCommand = new NpgsqlCommand(
-               "CREATE TABLE IF NOT EXISTS table1 (id SERIAL PRIMARY KEY, name VARCHAR(255), price INT)"
-               , connection);
+        private string _connectionString = "";
 
-        /*public VacancyRepository(string connectionString)
+        public VacancyRepository(string connectionString)
         {
-            if (_connectionString == null)
+            if (connectionString == null)
             {
                 throw new ArgumentNullException("Пустое соединение");
             }
             this._connectionString = connectionString;
-        }*/
+            var connection = new NpgsqlConnection(GetConnectionString(connectionString));
+            var reateTableCommand = new NpgsqlCommand(
+               "CREATE TABLE IF NOT EXISTS table1 (id SERIAL PRIMARY KEY, name VARCHAR(255), price INT)"
+               , connection);
+        }
 
         #region Methods
         private static string GetConnectionString(string postgreSqlConnectionString)

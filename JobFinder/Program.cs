@@ -7,6 +7,7 @@ namespace JobFinder
 {
     public class Program
     {
+        static readonly string _connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=enter;Database=JobsDB";
         public static void Main()
         {
             var searchVacancy = new VacancyQuery()
@@ -18,7 +19,7 @@ namespace JobFinder
             var apiClient = new HhApiClient();
             var allVacancies = apiClient.GetVacancies(searchVacancy);
 
-            var repository = new VacancyRepository();
+            var repository = new VacancyRepository(_connectionString);
 
             var telegram = new TelegramBot();
 
