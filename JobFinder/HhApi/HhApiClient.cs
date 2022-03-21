@@ -32,12 +32,42 @@ namespace JobFinder.HhApi
                         vacancy.Name = foundVacancy.name;
                         vacancy.HhId = Int32.Parse(foundVacancy.id);
                         vacancy.Location = foundVacancy.area.name;
-                        vacancy.MaxSalary = Convert.ToDecimal(foundVacancy.salary.from);
-                        vacancy.MinSalary = Convert.ToDecimal(foundVacancy.salary.to);
-                        vacancy.Currency = foundVacancy.salary.currency;
-                        vacancy.IsGross = foundVacancy.salary.gross;
-                        vacancy.Address = foundVacancy.address.raw;
-                        vacancy.MetroStation = foundVacancy.address.metro.station_name;
+                        if (CheckIfPropertyExists(foundVacancy, "salary"))
+                        {
+                            if (foundVacancy.salary != null)
+                            {
+                                if(CheckIfPropertyExists(foundVacancy.salary, "from"))
+                                {
+                                    vacancy.MinSalary = Convert.ToDecimal(foundVacancy.salary.from);
+                                }
+                                else if(CheckIfPropertyExists(foundVacancy.salary, "to"))
+                                {
+                                    vacancy.MaxSalary = Convert.ToDecimal(foundVacancy.salary.to);
+                                }
+                                else if (CheckIfPropertyExists(foundVacancy.salary, "currency"))
+                                {
+                                    vacancy.Currency = foundVacancy.salary.currency;
+                                }
+                                else if (CheckIfPropertyExists(foundVacancy.salary, "gross"))
+                                {
+                                    vacancy.IsGross = foundVacancy.salary.gross;
+                                }
+                            }
+                        }
+                        if (CheckIfPropertyExists(foundVacancy, "address"))
+                        {
+                            if (foundVacancy.address != null)
+                            {
+                                if (CheckIfPropertyExists(foundVacancy.address, "raw"))
+                                {
+                                    vacancy.Address = foundVacancy.address.raw;
+                                }
+                                else if (CheckIfPropertyExists(foundVacancy.address.metro, "station_name"))
+                                {
+                                    vacancy.MetroStation = foundVacancy.address.metro.station_name;
+                                }
+                            }
+                        }
                         vacancy.PublishDate = foundVacancy.published_at;
                         vacancy.IsArchived = foundVacancy.archived;
                         vacancy.LinkToApply = foundVacancy.apply_alternate_url;
@@ -75,6 +105,10 @@ namespace JobFinder.HhApi
                 vacancies = JsonConvert.DeserializeObject<FoundVacancies>(responseString);
             }
             return vacancies;
+        }
+        public bool CheckIfPropertyExists(object obj, string propertyName)
+        {
+            return obj.GetType().GetProperty(propertyName) != null;
         }
         #endregion
     }

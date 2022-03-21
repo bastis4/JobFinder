@@ -12,5 +12,6 @@ namespace JobFinder.Interfaces
         public List<Vacancy> GetVacancies(VacancyQuery query);
         public Vacancy GetVacancy(int id);
         public FoundVacancies GetAndParseResponse(VacancyQuery query);
+        public bool CheckIfPropertyExists(object o, string path);
     }
 }
