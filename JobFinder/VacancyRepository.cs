@@ -25,7 +25,27 @@ namespace JobFinder
             _connectionString = GetConnectionString(connectionString);
             openConnection();
             var createTableCommand = new NpgsqlCommand(
-               "CREATE TABLE IF NOT EXISTS table1 (id SERIAL PRIMARY KEY, name VARCHAR(255), price INT)"
+               "CREATE TABLE IF NOT EXISTS vacancies (" +
+               "id SERIAL PRIMARY KEY, " +
+               "name VARCHAR(255), " +
+               "hh_id INT, " +
+               "location VARCHAR(255), " +
+               "max_salary decimal, " +
+               "min_salary decimal, " +
+               "currency VARCHAR(255), " +
+               "is_gross bool, " +
+               "address VARCHAR(255), " +
+               "metro_station VARCHAR(255), " +
+               "publish_date TIMESTAMP WITHOUT TIME ZONE, " +
+               "is_archived bool, " +
+               "application_link VARCHAR(255), " +
+               "vacancy_link VARCHAR(255), " +
+               "employer_name VARCHAR(255), " +
+               "employer_link VARCHAR(255), " +
+               "requirement VARCHAR(255), " +
+               "responsibility VARCHAR(255), " +
+               "schedule VARCHAR(255)" +
+               ")"
                , sqlConnection);
             createTableCommand.ExecuteNonQuery();
             closeConnection();
@@ -74,14 +94,17 @@ namespace JobFinder
         }
         public void Insert(Vacancy vacancy)
         {
+            openConnection();
             throw new NotImplementedException();
         }
         public void Update(Vacancy vacancy)
         {
+            openConnection();
             throw new NotImplementedException();
         }
         public bool Get(int id)
         {
+            openConnection();
             throw new NotImplementedException();
         }
         #endregion
