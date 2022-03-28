@@ -40,15 +40,15 @@ namespace JobFinder.HhApi
                                 {
                                     vacancy.MinSalary = Convert.ToDecimal(foundVacancy.salary.from);
                                 }
-                                else if(CheckIfPropertyExists(foundVacancy.salary, "to"))
+                                if(CheckIfPropertyExists(foundVacancy.salary, "to"))
                                 {
                                     vacancy.MaxSalary = Convert.ToDecimal(foundVacancy.salary.to);
                                 }
-                                else if (CheckIfPropertyExists(foundVacancy.salary, "currency"))
+                                if (CheckIfPropertyExists(foundVacancy.salary, "currency"))
                                 {
                                     vacancy.Currency = foundVacancy.salary.currency;
                                 }
-                                else if (CheckIfPropertyExists(foundVacancy.salary, "gross"))
+                                if (CheckIfPropertyExists(foundVacancy.salary, "gross"))
                                 {
                                     vacancy.IsGross = foundVacancy.salary.gross;
                                 }
