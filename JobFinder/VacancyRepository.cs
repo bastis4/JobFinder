@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
+using System.Data;
 
 namespace JobFinder
 {
@@ -13,6 +14,7 @@ namespace JobFinder
     {
 
         private string _connectionString = "";
+        protected NpgsqlConnection sqlConnection;
 
         public VacancyRepository(string connectionString)
         {
@@ -20,14 +22,28 @@ namespace JobFinder
             {
                 throw new ArgumentNullException("Пустое соединение");
             }
-            this._connectionString = connectionString;
-            var connection = new NpgsqlConnection(GetConnectionString(connectionString));
-            var reateTableCommand = new NpgsqlCommand(
+            _connectionString = GetConnectionString(connectionString);
+            openConnection();
+            var createTableCommand = new NpgsqlCommand(
                "CREATE TABLE IF NOT EXISTS table1 (id SERIAL PRIMARY KEY, name VARCHAR(255), price INT)"
-               , connection);
+               , sqlConnection);
+            createTableCommand.ExecuteNonQuery();
+            closeConnection();
         }
 
         #region Methods
+        private void openConnection()
+        {
+            sqlConnection = new NpgsqlConnection(_connectionString);
+            sqlConnection.Open();
+        }
+        private void closeConnection()
+        {
+            if (sqlConnection.State == ConnectionState.Open)
+            {
+                sqlConnection.Close();
+            }
+        }
         private static string GetConnectionString(string postgreSqlConnectionString)
         {
             NpgsqlConnectionStringBuilder connBuilder = new()
