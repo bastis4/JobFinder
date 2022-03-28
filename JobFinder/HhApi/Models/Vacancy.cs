@@ -11,8 +11,8 @@ namespace JobFinder.HhApi.Models
         public string Name { get; set; }
         public int HhId { get; set; }
         public string Location { get; set; }
-        public decimal? MaxSalary { get; set; }
         public decimal? MinSalary { get; set; }
+        public decimal? MaxSalary { get; set; }
         public string? Currency { get; set; }
         public bool? IsGross { get; set; }
         public string? Address { get; set; }

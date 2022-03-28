@@ -30,8 +30,8 @@ namespace JobFinder
                "name VARCHAR(255)," +
                "hh_id INT," +
                "location VARCHAR(255)," +
-               "max_salary decimal," +
                "min_salary decimal," +
+               "max_salary decimal," +
                "currency VARCHAR(255)," +
                "is_gross bool," +
                "address VARCHAR(255)," +
@@ -99,8 +99,8 @@ namespace JobFinder
                "name," +
                "hh_id," +
                "location," +
-               "max_salary," +
                "min_salary," +
+               "max_salary," +
                "currency," +
                "is_gross," +
                "address," +
@@ -122,8 +122,8 @@ namespace JobFinder
                     new("p1", vacancy.Name),
                     new("p2", vacancy.HhId),
                     new("p3", vacancy.Location),
-                    new("p4", vacancy.MaxSalary),
-                    new("p5", vacancy.MinSalary),
+                    new("p4", vacancy.MinSalary),
+                    new("p5", vacancy.MaxSalary),
                     new("p6", vacancy.Currency),
                     new("p7", vacancy.IsGross),
                     new("p8", vacancy.Address),
