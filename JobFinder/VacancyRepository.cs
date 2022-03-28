@@ -80,16 +80,16 @@ namespace JobFinder
                 connection.Open();
                 var checkIfExistsCommand = new NpgsqlCommand($"SELECT 1 FROM pg_catalog.pg_database WHERE datname = '{dbName}'", connection);
                 var result = checkIfExistsCommand.ExecuteScalar();
-
+                
                 if (result == null)
                 {
                     var command = new NpgsqlCommand($"CREATE DATABASE \"{dbName}\"", connection);
                     command.ExecuteNonQuery();
                 }
+                connection.Close();
             }
 
             postgreSqlConnectionString = masterConnection.Replace("Database=postgres", "Database=" + dbName);
-
             return postgreSqlConnectionString;
         }
         public void Insert(Vacancy vacancy)
@@ -105,7 +105,14 @@ namespace JobFinder
         public bool Get(int id)
         {
             openConnection();
-            throw new NotImplementedException();
+            var findVacancyById = new NpgsqlCommand("SELECT * FROM vacancies WHERE vacancies.hh_id = id", sqlConnection);
+            var result = findVacancyById.ExecuteScalar();
+            closeConnection();
+            if (result != null)
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
 
