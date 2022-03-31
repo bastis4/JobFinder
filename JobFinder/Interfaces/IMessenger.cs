@@ -9,6 +9,7 @@ namespace JobFinder.Interfaces
 {
     public interface IMessenger
     {
+        public Task<string> GetKeywordsToSearchForVacancies();
         public void SendNewVacancy(Vacancy vacancy);
         public void SendUpdatedVacancy(Vacancy vacancy);
     }

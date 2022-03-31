@@ -25,7 +25,7 @@ namespace JobFinder.HhApi
             {
                 query.Page = i.ToString();
                 var foundVacancies = GetAndParseResponse(query);
-                foreach(var foundVacancy in foundVacancies.items)
+                foreach (var foundVacancy in foundVacancies.items)
                 {
                     var vacancy = new Vacancy();
                     {
@@ -36,11 +36,11 @@ namespace JobFinder.HhApi
                         {
                             if (foundVacancy.salary != null)
                             {
-                                if(CheckIfPropertyExists(foundVacancy.salary, "from"))
+                                if (CheckIfPropertyExists(foundVacancy.salary, "from"))
                                 {
                                     vacancy.MinSalary = Convert.ToDecimal(foundVacancy.salary.from);
                                 }
-                                if(CheckIfPropertyExists(foundVacancy.salary, "to"))
+                                if (CheckIfPropertyExists(foundVacancy.salary, "to"))
                                 {
                                     vacancy.MaxSalary = Convert.ToDecimal(foundVacancy.salary.to);
                                 }
@@ -94,9 +94,9 @@ namespace JobFinder.HhApi
         {
             FoundVacancies vacancies = null;
             var requestUrl = urlBuilder.GetUrlVacanciesQuery(query);
-            
+
             httpClient.DefaultRequestHeaders.Add("User-Agent", "api-test-agent");
-            
+
             var response = httpClient.GetAsync(requestUrl).Result;
             if (response.IsSuccessStatusCode)
             {

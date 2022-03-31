@@ -66,8 +66,8 @@ namespace JobFinder.HhApi.Models
     {
         public int? from { get; set; }
         public int? to { get; set; }
-        public string currency { get; set; }
-        public bool gross { get; set; }
+        public string? currency { get; set; }
+        public bool? gross { get; set; }
     }
 
     public class Type

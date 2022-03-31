@@ -14,7 +14,7 @@ namespace JobFinder
     {
 
         private string _connectionString = "";
-        protected NpgsqlConnection sqlConnection;
+        private NpgsqlConnection sqlConnection;
 
         public VacancyRepository(string connectionString)
         {
