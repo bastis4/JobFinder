@@ -25,10 +25,10 @@ namespace JobFinder
         {
             var receiverOptions = new ReceiverOptions
             {
-                AllowedUpdates = { }
+                AllowedUpdates = { },
+                ThrowPendingUpdates = true
             };
-
-            Console.WriteLine("Что ищем?");
+       
             await bot.ReceiveAsync(
                 HandleUpdateAsync,
                 HandleErrorAsync,
@@ -39,8 +39,7 @@ namespace JobFinder
         }
         private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(update));
-            var x = update.Message;
+            
             chatId = update.Message.Chat.Id;
             messageText = update.Message.Text;
             cts.Cancel();
