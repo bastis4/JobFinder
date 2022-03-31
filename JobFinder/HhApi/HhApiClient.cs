@@ -74,8 +74,6 @@ namespace JobFinder.HhApi
                         vacancy.Link = foundVacancy.alternate_url;
                         vacancy.EmployerName = foundVacancy.employer.name;
                         vacancy.EmployerLink = foundVacancy.employer.alternate_url;
-                        vacancy.Requirement = foundVacancy.snippet.requirement;
-                        vacancy.Responsibility = foundVacancy.snippet.responsibility;
                         vacancy.Schedule = foundVacancy.schedule.name;
                     }
                     vacancies.Add(vacancy);

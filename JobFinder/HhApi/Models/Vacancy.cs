@@ -23,8 +23,6 @@ namespace JobFinder.HhApi.Models
         public string Link { get; set; }
         public string EmployerName { get; set; }
         public string EmployerLink { get; set; }
-        public string? Requirement { get; set; }
-        public string? Responsibility { get; set; }
         public string? Schedule { get; set; }
     }
 }

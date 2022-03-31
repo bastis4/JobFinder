@@ -23,22 +23,24 @@ namespace JobFinder
 
         public async Task<string> GetKeywordsToSearchForVacancies()
         {
-            //using var cts = new CancellationTokenSource();
             var receiverOptions = new ReceiverOptions
             {
                 AllowedUpdates = { }
             };
+
+            Console.WriteLine("Что ищем?");
             await bot.ReceiveAsync(
                 HandleUpdateAsync,
                 HandleErrorAsync,
                 receiverOptions,
                 cancellationToken: cts.Token
             );
-            //cts.Cancel();
             return messageText;
         }
         private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(update));
+            var x = update.Message;
             chatId = update.Message.Chat.Id;
             messageText = update.Message.Text;
             cts.Cancel();
@@ -51,13 +53,20 @@ namespace JobFinder
                     => $"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}",
                 _ => exception.ToString()
             };
-
             Console.WriteLine(ErrorMessage);
             return Task.CompletedTask;
         }
-        public void SendNewVacancy(Vacancy vacancy)
+        private async Task<Message> PrepareMessage(Vacancy vacancy)
         {
-            throw new NotImplementedException();
+            var messageToSent = await bot.SendTextMessageAsync(
+                    chatId: chatId,
+                    text: vacancy.Name);
+            return messageToSent;
+        }
+
+        public async Task SendNewVacancy(Vacancy vacancy)
+        {
+            Message result = await PrepareMessage(vacancy);
         }
         public void SendUpdatedVacancy(Vacancy vacancy)
         {

@@ -37,10 +37,5 @@ namespace JobFinder.HhApi.Models
         public string Premium { get; set; }
         public string PartTime { get; set; }
         public string ProfessionalRole { get; set; }
-
-        //public string IsClustered { get; set; }
-        //public string HasSearchArguments { get; set; }
-        //public string HasResponsesCount { get; set; }
-        //public string NoFormattedQuery { get; set; }
     }
 }

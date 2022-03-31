@@ -42,8 +42,6 @@ namespace JobFinder
                "vacancy_link VARCHAR(255)," +
                "employer_name VARCHAR(255)," +
                "employer_link VARCHAR(255)," +
-               "requirement VARCHAR(255)," +
-               "responsibility VARCHAR(255)," +
                "schedule VARCHAR(255)" +
                ")"
                , sqlConnection);
@@ -111,11 +109,9 @@ namespace JobFinder
                "vacancy_link," +
                "employer_name," +
                "employer_link," +
-               "requirement," +
-               "responsibility," +
                "schedule" +
                 ") VALUES " +
-                "(@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18)", sqlConnection)
+                "(@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16)", sqlConnection)
             {
                 Parameters =
                 {
@@ -134,9 +130,7 @@ namespace JobFinder
                     new("p13", vacancy.Link),
                     new("p14", vacancy.EmployerName),
                     new("p15", vacancy.EmployerLink),
-                    new("p16", vacancy.Requirement),
-                    new("p17", vacancy.Responsibility),
-                    new("p18", vacancy.Schedule)
+                    new("p16", vacancy.Schedule)
                 }
             };
             foreach (NpgsqlParameter sp in command.Parameters)
