@@ -13,27 +13,32 @@ namespace JobFinder
         VacancyRepository vacancyRepository;
         TelegramBot telegram;
         HhApiClient apiClient;
+        List<Vacancy> newVacancies = new List<Vacancy>();
+        List<Vacancy> updatedVacancies = new List<Vacancy>();
         public VacancyManager(VacancyRepository repository, TelegramBot telegram, HhApiClient apiClient)
         {
             this.vacancyRepository = repository; 
             this.telegram = telegram;
             this.apiClient = apiClient;
         }
-        public void InsertOrUpdate(List<Vacancy> vacancies)
+        public async Task InsertOrUpdate(List<Vacancy> vacancies)
         {
             foreach (var vacancy in vacancies)
             {
                 if (!vacancyRepository.Get(vacancy.HhId))
                 {
                     vacancyRepository.Insert(vacancy);
-                    telegram.SendNewVacancy(vacancy);
+                    newVacancies.Add(vacancy);                   
                 }
-                else
+                /*else
                 {
                     vacancyRepository.Update(vacancy);
-                    telegram.SendUpdatedVacancy(vacancy);
-                }
+                    updatedVacancies.Add(vacancy);
+                }*/
             }
+             
+            await telegram.SendNewVacancy(newVacancies);
+
         }
     }
 }

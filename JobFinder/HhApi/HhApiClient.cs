@@ -21,7 +21,7 @@ namespace JobFinder.HhApi
             var vacancies = new List<Vacancy>();
 
             var pagesCount = GetAndParseResponse(query).pages;
-            for (int i = 0; i < pagesCount; i++)
+            for (int i = 0; i < pagesCount && i < 200; i++)
             {
                 query.Page = i.ToString();
                 var foundVacancies = GetAndParseResponse(query);

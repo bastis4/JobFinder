@@ -11,8 +11,8 @@ namespace JobFinder.Interfaces
     public interface IMessenger
     {
         public Task<string> GetKeywordsToSearchForVacancies();
-        public Task SendNewVacancy(Vacancy vacancy);
-        public void SendUpdatedVacancy(Vacancy vacancy);
+        public Task SendNewVacancy(List<Vacancy> newVacancies);
+        public void SendUpdatedVacancy(List<Vacancy> updatedVacancies);
     }
 
 }
