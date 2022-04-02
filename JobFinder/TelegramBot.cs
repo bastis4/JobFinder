@@ -56,7 +56,7 @@ namespace JobFinder
             Console.WriteLine(ErrorMessage);
             return Task.CompletedTask;
         }
-        private async Task<Message> PrepareMessage(string textToSend)
+        private async Task<Message> SendMessage(string textToSend)
         {
             var messageToSent = await bot.SendTextMessageAsync(
                     chatId: chatId,
@@ -69,24 +69,6 @@ namespace JobFinder
         {
             var textToSend = "";
             var chunkSize = 5;
-
-            /*foreach (var chunk in newVacancies.Chunk(chunkSize)) 
-            {
-                foreach(var vacancy in chunk)
-                {
-                    textToSend += $"{vacancy.Name} \n" +
-                    $"{vacancy.Location} \n" +
-                    $"{vacancy.MinSalary} - {vacancy.MaxSalary} {vacancy.Currency}\n" +
-                    $"Компания: {vacancy.EmployerName} {vacancy.EmployerLink}\n" +
-                    $"{vacancy.Schedule} \n" +
-                    $"Подробнее: {vacancy.Link} \n" +
-                    $"Адрес: {vacancy.Address} \n" +
-                    "---------------------------------------------------------------\n";
-                }
-                Console.WriteLine(textToSend);
-                Message result = await PrepareMessage(textToSend);
-                textToSend = "";
-            }*/
 
             List<Task<Message>> listOfTasks = new List<Task<Message>>();
 
@@ -104,37 +86,14 @@ namespace JobFinder
                     "---------------------------------------------------------------\n";
                 }
                 Console.WriteLine(textToSend);
-                listOfTasks.Add(PrepareMessage(textToSend));
+                listOfTasks.Add(SendMessage(textToSend));
                 //Message result = await PrepareMessage(textToSend);
                 textToSend = "";
             }
 
-            var x =  await Task.WhenAll<Message>(listOfTasks);
-
-            /*foreach (var vacancy in newVacancies)
-        {
-            textToSend += $"{vacancy.Name} \n" +
-                $"{vacancy.Location} \n" +
-                $"{vacancy.MinSalary} - {vacancy.MaxSalary} {vacancy.Currency}\n" +
-                $"Компания: {vacancy.EmployerName} {vacancy.EmployerLink}\n" +
-                $"{vacancy.Schedule} \n" +
-                $"Подробнее: {vacancy.Link} \n" +
-                $"Адрес: {vacancy.Address} \n" +
-                $"Станция метро: {vacancy.MetroStation} \n" +
-                $"Откликнуться: {vacancy.LinkToApply} \n" +
-                "---------------------------------------------\n";
-        }*/
-            /*
-                        for (int i = 0; i < 5; i++)
-                        {
-                            textToSend += $"{newVacancies[i].Name} + Подробнее: {newVacancies[i].Link} \n";
-                        }*/
-            //Message result = await PrepareMessage(textToSend);
+            var x =  await Task.WhenAll<Message>();
 
         }
-        public void SendUpdatedVacancy(List<Vacancy> updatedVacancies)
-        {
-            throw new NotImplementedException();
-        }
+ 
     }
 }

@@ -12,7 +12,6 @@ namespace JobFinder.Interfaces
     {
         public Task<string> GetKeywordsToSearchForVacancies();
         public Task SendNewVacancy(List<Vacancy> newVacancies);
-        public void SendUpdatedVacancy(List<Vacancy> updatedVacancies);
     }
 
 }

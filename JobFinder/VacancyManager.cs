@@ -21,7 +21,7 @@ namespace JobFinder
             this.telegram = telegram;
             this.apiClient = apiClient;
         }
-        public async Task InsertOrUpdate(List<Vacancy> vacancies)
+        public async Task SaveAndSend(List<Vacancy> vacancies)
         {
             foreach (var vacancy in vacancies)
             {
@@ -30,13 +30,7 @@ namespace JobFinder
                     vacancyRepository.Insert(vacancy);
                     newVacancies.Add(vacancy);                   
                 }
-                /*else
-                {
-                    vacancyRepository.Update(vacancy);
-                    updatedVacancies.Add(vacancy);
-                }*/
-            }
-             
+            }             
             await telegram.SendNewVacancy(newVacancies);
 
         }
