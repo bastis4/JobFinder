@@ -24,6 +24,7 @@ namespace JobFinder
             var manager = new VacancyManager(repository, telegram, apiClient);
             manager.SaveAndSend(allVacancies);
             Console.WriteLine("All done");
+            Console.ReadLine();
         }
     }
 }

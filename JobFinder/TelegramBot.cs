@@ -20,6 +20,7 @@ namespace JobFinder
         private static CancellationTokenSource cts = new CancellationTokenSource();
         private long chatId;
         private string messageText;
+        private static readonly int _messageLimit = 4000;
 
         public async Task<string> GetKeywordsToSearchForVacancies()
         {
@@ -56,7 +57,7 @@ namespace JobFinder
             Console.WriteLine(ErrorMessage);
             return Task.CompletedTask;
         }
-        private async Task<Message> SendMessage(string textToSend)
+        private async Task<Message> SendMessage(String textToSend)
         {
             var messageToSent = await bot.SendTextMessageAsync(
                     chatId: chatId,
@@ -67,31 +68,82 @@ namespace JobFinder
 
         public async Task SendNewVacancy(List<Vacancy> newVacancies)
         {
+            var builder = new StringBuilder();
             var textToSend = "";
-            var chunkSize = 5;
-
-            List<Task<Message>> listOfTasks = new List<Task<Message>>();
-
-            foreach (var chunk in newVacancies.Chunk(chunkSize))
+            var listOfTasks = new List<Task<Message>>();
+            foreach (var vacancy in newVacancies)
             {
-                foreach (var vacancy in chunk)
-                {
-                    textToSend += $"{vacancy.Name} \n" +
-                    $"{vacancy.Location} \n" +
-                    $"{vacancy.MinSalary} - {vacancy.MaxSalary} {vacancy.Currency}\n" +
-                    $"Компания: {vacancy.EmployerName} {vacancy.EmployerLink}\n" +
-                    $"{vacancy.Schedule} \n" +
-                    $"Подробнее: {vacancy.Link} \n" +
-                    $"Адрес: {vacancy.Address} \n" +
-                    "---------------------------------------------------------------\n";
-                }
-                Console.WriteLine(textToSend);
-                listOfTasks.Add(SendMessage(textToSend));
-                //Message result = await PrepareMessage(textToSend);
-                textToSend = "";
+                Console.WriteLine(vacancy.HhId);
             }
 
+            for (int i = 0; i < newVacancies.Count;)
+            {
+                var t = builder.Length;
+                var stringToCheck = StringFormer(newVacancies[i]);
+                if (builder.Length <= _messageLimit - stringToCheck.Length)
+                {
+                    var length = builder.Length;
+                    builder.Append(stringToCheck);
+                    var finalLength = builder.Length;
+                    i++;
+                }
+                else
+                {
+                    listOfTasks.Add(SendMessage(builder.ToString()));
+                    builder.Clear();
+                }
+            }
+/*
+                foreach (var vacancy in newVacancies)
+            {
+                if (builder.Length < _messageLimit)
+                {
+                    var length = builder.Length;
+                    builder.Append(StringFormer(vacancy));
+                    var finalLength = builder.Length;
+                }
+                else
+                {
+                    listOfTasks.Add(SendMessage(builder.ToString()));
+                    builder.Clear();
+                } 
+            }*/
+
+            /*            var chunkSize = 5;
+             *            foreach (var chunk in newVacancies.Chunk(chunkSize))
+                        {
+                            foreach (var vacancy in chunk)
+                            {
+                                textToSend += $"{vacancy.Name} \n" +
+                                $"{vacancy.Location} \n" +
+                                $"{vacancy.MinSalary} - {vacancy.MaxSalary} {vacancy.Currency}\n" +
+                                $"Компания: {vacancy.EmployerName} {vacancy.EmployerLink}\n" +
+                                $"{vacancy.Schedule} \n" +
+                                $"Подробнее: {vacancy.Link} \n" +
+                                $"Адрес: {vacancy.Address} \n" +
+                                "---------------------------------------------------------------\n";
+                            }
+                            Console.WriteLine(textToSend);
+                            listOfTasks.Add(SendMessage(textToSend));
+                            //Message result = await PrepareMessage(textToSend);
+                            textToSend = "";
+                        }*/
+
             var x =  await Task.WhenAll<Message>();
+        }
+
+        private StringBuilder StringFormer(Vacancy vacancy)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append($"id {vacancy.HhId} + {vacancy.Name} \n" +
+                   $"{vacancy.Location} \n" +
+                   $"{vacancy.MinSalary} - {vacancy.MaxSalary} {vacancy.Currency}\n" +
+                   $"Компания: {vacancy.EmployerName} {vacancy.EmployerLink}\n" +
+                   $"{vacancy.Schedule} \n" +
+                   $"Подробнее: {vacancy.Link} \n" +
+                   $"Адрес: {vacancy.Address} \n" +
+                   "---------------------------------------------------------------\n");
+            return builder;
 
         }
  
