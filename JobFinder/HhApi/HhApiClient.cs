@@ -69,7 +69,6 @@ namespace JobFinder.HhApi
                             }
                         }
                         vacancy.PublishDate = foundVacancy.published_at;
-                        vacancy.IsArchived = foundVacancy.archived;
                         vacancy.LinkToApply = foundVacancy.apply_alternate_url;
                         vacancy.Link = foundVacancy.alternate_url;
                         vacancy.EmployerName = foundVacancy.employer.name;

@@ -18,7 +18,6 @@ namespace JobFinder.HhApi.Models
         public string? Address { get; set; }
         public string? MetroStation { get; set; }
         public DateTime PublishDate { get; set; }
-        public bool IsArchived { get; set; }
         public string LinkToApply { get; set; }
         public string Link { get; set; }
         public string EmployerName { get; set; }

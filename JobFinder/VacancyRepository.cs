@@ -104,14 +104,13 @@ namespace JobFinder
                "address," +
                "metro_station," +
                "publish_date," +
-               "is_archived," +
                "application_link," +
                "vacancy_link," +
                "employer_name," +
                "employer_link," +
                "schedule" +
                 ") VALUES " +
-                "(@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16)", sqlConnection)
+                "(@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15)", sqlConnection)
             {
                 Parameters =
                 {
@@ -125,12 +124,11 @@ namespace JobFinder
                     new("p8", vacancy.Address),
                     new("p9", vacancy.MetroStation),
                     new("p10", vacancy.PublishDate),
-                    new("p11", vacancy.IsArchived),
-                    new("p12", vacancy.LinkToApply),
-                    new("p13", vacancy.Link),
-                    new("p14", vacancy.EmployerName),
-                    new("p15", vacancy.EmployerLink),
-                    new("p16", vacancy.Schedule)
+                    new("p11", vacancy.LinkToApply),
+                    new("p12", vacancy.Link),
+                    new("p13", vacancy.EmployerName),
+                    new("p14", vacancy.EmployerLink),
+                    new("p15", vacancy.Schedule)
                 }
             };
             foreach (NpgsqlParameter sp in command.Parameters)
