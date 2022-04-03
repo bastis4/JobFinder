@@ -59,12 +59,12 @@ namespace JobFinder
         }
         private async Task<Message> SendMessage(String textToSend)
         {
-            await Task.Delay(1000);
+            await Task.Delay(100000);
             var messageToSent = await bot.SendTextMessageAsync(
                     chatId: chatId,
                     text: textToSend,
                     disableWebPagePreview: true);
-             return messageToSent;
+            return messageToSent;
         }
 
         public async Task SendNewVacancy(List<Vacancy> newVacancies)
@@ -81,6 +81,7 @@ namespace JobFinder
             {
                 var t = builder.Length;
                 var stringToCheck = StringFormer(newVacancies[i]);
+
                 if (builder.Length <= _messageLimit - stringToCheck.Length)
                 {
                     var length = builder.Length;
@@ -88,7 +89,7 @@ namespace JobFinder
                     var finalLength = builder.Length;
                     i++;
                 }
-                if (builder.Length > _messageLimit - stringToCheck.Length || i-1 == newVacancies.Count -1)
+                if (builder.Length > _messageLimit - stringToCheck.Length || i - 1 == newVacancies.Count - 1)
                 {
                     listOfTasks.Add(SendMessage(builder.ToString()));
                     using (StreamWriter writetext = new StreamWriter("D:\\AMD\\gg.txt", append: true))
@@ -98,43 +99,8 @@ namespace JobFinder
                     builder.Clear();
                 }
             }
-/*
-                foreach (var vacancy in newVacancies)
-            {
-                if (builder.Length < _messageLimit)
-                {
-                    var length = builder.Length;
-                    builder.Append(StringFormer(vacancy));
-                    var finalLength = builder.Length;
-                }
-                else
-                {
-                    listOfTasks.Add(SendMessage(builder.ToString()));
-                    builder.Clear();
-                } 
-            }*/
 
-            /*            var chunkSize = 5;
-             *            foreach (var chunk in newVacancies.Chunk(chunkSize))
-                        {
-                            foreach (var vacancy in chunk)
-                            {
-                                textToSend += $"{vacancy.Name} \n" +
-                                $"{vacancy.Location} \n" +
-                                $"{vacancy.MinSalary} - {vacancy.MaxSalary} {vacancy.Currency}\n" +
-                                $"Компания: {vacancy.EmployerName} {vacancy.EmployerLink}\n" +
-                                $"{vacancy.Schedule} \n" +
-                                $"Подробнее: {vacancy.Link} \n" +
-                                $"Адрес: {vacancy.Address} \n" +
-                                "---------------------------------------------------------------\n";
-                            }
-                            Console.WriteLine(textToSend);
-                            listOfTasks.Add(SendMessage(textToSend));
-                            //Message result = await PrepareMessage(textToSend);
-                            textToSend = "";
-                        }*/
-
-            var x =  await Task.WhenAll<Message>();
+            var x = await Task.WhenAll<Message>();
         }
 
         private StringBuilder StringFormer(Vacancy vacancy)
@@ -151,6 +117,6 @@ namespace JobFinder
             return builder;
 
         }
- 
+
     }
 }
