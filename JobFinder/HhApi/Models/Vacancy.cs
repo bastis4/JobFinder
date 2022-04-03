@@ -14,7 +14,6 @@ namespace JobFinder.HhApi.Models
         public decimal? MinSalary { get; set; }
         public decimal? MaxSalary { get; set; }
         public string? Currency { get; set; }
-        public bool? IsGross { get; set; }
         public string? Address { get; set; }
         public string? MetroStation { get; set; }
         public DateTime PublishDate { get; set; }

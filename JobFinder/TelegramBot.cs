@@ -67,6 +67,7 @@ namespace JobFinder
             var messageToSent = await bot.SendTextMessageAsync(
                                 chatId: chatId,
                                 text: textToSend,
+                                parseMode: ParseMode.Html,
                                 disableWebPagePreview: true);
 
             await Task.Delay(delay);
@@ -130,13 +131,13 @@ namespace JobFinder
         private StringBuilder StringFormer(Vacancy vacancy)
         {
             StringBuilder builder = new StringBuilder();
-            builder.Append($"id {vacancy.HhId} + {vacancy.Name} \n" +
-                   $"{vacancy.Location} \n" +
+            builder.Append($"<a href='{vacancy.Link}'><b>{vacancy.Name}</b></a>\n" +
+                   $"{vacancy.Location}\n" +
                    $"{vacancy.MinSalary} - {vacancy.MaxSalary} {vacancy.Currency}\n" +
-                   $"Компания: {vacancy.EmployerName} {vacancy.EmployerLink}\n" +
+                   $"<a href='{vacancy.EmployerLink}'><b>{vacancy.EmployerName}</b></a>\n" +
                    $"{vacancy.Schedule} \n" +
-                   $"Подробнее: {vacancy.Link} \n" +
-                   $"Адрес: {vacancy.Address} \n" +
+                   $"{vacancy.Address} \n" +
+                   //$"{($"{vacancy.Address}" != null ? $"{vacancy.Address}" : null)}\n" +
                    "---------------------------------------------------------------\n");
             return builder;
 

@@ -100,7 +100,6 @@ namespace JobFinder
                "min_salary," +
                "max_salary," +
                "currency," +
-               "is_gross," +
                "address," +
                "metro_station," +
                "publish_date," +
@@ -110,7 +109,7 @@ namespace JobFinder
                "employer_link," +
                "schedule" +
                 ") VALUES " +
-                "(@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15)", sqlConnection)
+                "(@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14)", sqlConnection)
             {
                 Parameters =
                 {
@@ -120,15 +119,14 @@ namespace JobFinder
                     new("p4", vacancy.MinSalary),
                     new("p5", vacancy.MaxSalary),
                     new("p6", vacancy.Currency),
-                    new("p7", vacancy.IsGross),
-                    new("p8", vacancy.Address),
-                    new("p9", vacancy.MetroStation),
-                    new("p10", vacancy.PublishDate),
-                    new("p11", vacancy.LinkToApply),
-                    new("p12", vacancy.Link),
-                    new("p13", vacancy.EmployerName),
-                    new("p14", vacancy.EmployerLink),
-                    new("p15", vacancy.Schedule)
+                    new("p7", vacancy.Address),
+                    new("p8", vacancy.MetroStation),
+                    new("p9", vacancy.PublishDate),
+                    new("p10", vacancy.LinkToApply),
+                    new("p11", vacancy.Link),
+                    new("p12", vacancy.EmployerName),
+                    new("p13", vacancy.EmployerLink),
+                    new("p14", vacancy.Schedule)
                 }
             };
             foreach (NpgsqlParameter sp in command.Parameters)

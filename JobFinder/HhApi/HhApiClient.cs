@@ -48,10 +48,7 @@ namespace JobFinder.HhApi
                                 {
                                     vacancy.Currency = foundVacancy.salary.currency;
                                 }
-                                if (CheckIfPropertyExists(foundVacancy.salary, "gross"))
-                                {
-                                    vacancy.IsGross = foundVacancy.salary.gross;
-                                }
+
                             }
                         }
                         if (CheckIfPropertyExists(foundVacancy, "address"))
