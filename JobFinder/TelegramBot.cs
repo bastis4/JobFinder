@@ -59,6 +59,7 @@ namespace JobFinder
         }
         private async Task<Message> SendMessage(String textToSend)
         {
+            await Task.Delay(1000);
             var messageToSent = await bot.SendTextMessageAsync(
                     chatId: chatId,
                     text: textToSend,
@@ -87,9 +88,13 @@ namespace JobFinder
                     var finalLength = builder.Length;
                     i++;
                 }
-                else
+                if (builder.Length > _messageLimit - stringToCheck.Length || i-1 == newVacancies.Count -1)
                 {
                     listOfTasks.Add(SendMessage(builder.ToString()));
+                    using (StreamWriter writetext = new StreamWriter("D:\\AMD\\gg.txt", append: true))
+                    {
+                        writetext.WriteLine(builder);
+                    }
                     builder.Clear();
                 }
             }
