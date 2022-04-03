@@ -20,7 +20,7 @@ namespace JobFinder
         private static CancellationTokenSource cts = new CancellationTokenSource();
         private long chatId;
         private string messageText;
-        private static readonly int _messageLimit = 4000;
+        private static readonly int _messageLimit = 4090;
 
         public async Task<string> GetKeywordsToSearchForVacancies()
         {
@@ -57,50 +57,74 @@ namespace JobFinder
             Console.WriteLine(ErrorMessage);
             return Task.CompletedTask;
         }
-        private async Task<Message> SendMessage(String textToSend)
+
+        private async Task<Message> SendMessage(string textToSend, int delay)
         {
-            await Task.Delay(100000);
+            if(textToSend == null)
+            {
+                Console.WriteLine("Empty");
+            }
             var messageToSent = await bot.SendTextMessageAsync(
-                    chatId: chatId,
-                    text: textToSend,
-                    disableWebPagePreview: true);
+                                chatId: chatId,
+                                text: textToSend,
+                                disableWebPagePreview: true);
+
+            await Task.Delay(delay);
+
             return messageToSent;
         }
 
         public async Task SendNewVacancy(List<Vacancy> newVacancies)
         {
-            var builder = new StringBuilder();
-            var textToSend = "";
+            var textToSend = new StringBuilder();
             var listOfTasks = new List<Task<Message>>();
             foreach (var vacancy in newVacancies)
             {
                 Console.WriteLine(vacancy.HhId);
             }
 
+            Task<Message> prevTask = default;
+
             for (int i = 0; i < newVacancies.Count;)
             {
-                var t = builder.Length;
+                var t = textToSend.Length;
                 var stringToCheck = StringFormer(newVacancies[i]);
 
-                if (builder.Length <= _messageLimit - stringToCheck.Length)
+                if (textToSend.Length <= _messageLimit - stringToCheck.Length)
                 {
-                    var length = builder.Length;
-                    builder.Append(stringToCheck);
-                    var finalLength = builder.Length;
+                    var length = textToSend.Length;
+                    textToSend.Append(stringToCheck);
+                    var finalLength = textToSend.Length;
                     i++;
                 }
-                if (builder.Length > _messageLimit - stringToCheck.Length || i - 1 == newVacancies.Count - 1)
+                if (textToSend.Length > _messageLimit - stringToCheck.Length || i - 1 == newVacancies.Count - 1)
                 {
-                    listOfTasks.Add(SendMessage(builder.ToString()));
-                    using (StreamWriter writetext = new StreamWriter("D:\\AMD\\gg.txt", append: true))
+                    var msg = textToSend.ToString();
+                    var delay = 500;
+
+                    if (prevTask != default)
                     {
-                        writetext.WriteLine(builder);
+                        var result = prevTask.ContinueWith(async (x) => await SendMessage(msg, delay));
+
+                        prevTask = result.Unwrap();
                     }
-                    builder.Clear();
+                    else
+                    {
+                        prevTask = SendMessage(msg, delay);
+                    }
+
+                    listOfTasks.Add(prevTask);
+
+                   /* using (StreamWriter writetext = new StreamWriter("D:\\AMD\\gg.txt", append: true))
+                    {
+                        writetext.WriteLine(textToSend);
+                    }*/
+                    textToSend.Clear();
                 }
             }
+            
+           await Task.WhenAll<Message>(listOfTasks);
 
-            var x = await Task.WhenAll<Message>();
         }
 
         private StringBuilder StringFormer(Vacancy vacancy)
