@@ -143,7 +143,7 @@ namespace JobFinder
                 {
                     builder.Append($"от {Convert.ToDecimal(vacancy.MinSalary):#,0.#}");
                 }
-                if (vacancy.MinSalary > 0)
+                if (vacancy.MaxSalary > 0)
                 {
                     builder.Append($" до {Convert.ToDecimal(vacancy.MaxSalary):#,0.#}");
                 }
