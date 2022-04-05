@@ -14,7 +14,6 @@ namespace JobFinder
         TelegramBot telegram;
         HhApiClient apiClient;
         List<Vacancy> newVacancies = new List<Vacancy>();
-        List<Vacancy> updatedVacancies = new List<Vacancy>();
         public VacancyManager(VacancyRepository repository, TelegramBot telegram, HhApiClient apiClient)
         {
             this.vacancyRepository = repository; 

@@ -131,14 +131,30 @@ namespace JobFinder
         private StringBuilder StringFormer(Vacancy vacancy)
         {
             StringBuilder builder = new StringBuilder();
-            builder.Append($"<a href='{vacancy.Link}'><b>{vacancy.Name}</b></a>\n" +
-                   $"{vacancy.Location}\n" +
-                   $"{vacancy.MinSalary} - {vacancy.MaxSalary} {vacancy.Currency}\n" +
-                   $"<a href='{vacancy.EmployerLink}'><b>{vacancy.EmployerName}</b></a>\n" +
-                   $"{vacancy.Schedule} \n" +
-                   $"{vacancy.Address} \n" +
-                   //$"{($"{vacancy.Address}" != null ? $"{vacancy.Address}" : null)}\n" +
-                   "---------------------------------------------------------------\n");
+            builder.Append(char.ConvertFromUtf32(0x1F41D) + $" <a href='{vacancy.Link}'><b>{vacancy.Name}</b></a>\n");
+            builder.Append($"<b>{vacancy.EmployerName}</b>\n");
+            if (vacancy.Location != null)
+            {
+                builder.Append(vacancy.Location + "\n");
+            }
+            if(vacancy.MinSalary != null || vacancy.MaxSalary != null)
+            {
+                if(vacancy.MinSalary > 0)
+                {
+                    builder.Append($"от {Convert.ToDecimal(vacancy.MinSalary):#,0.#}");
+                }
+                if (vacancy.MinSalary > 0)
+                {
+                    builder.Append($" до {Convert.ToDecimal(vacancy.MaxSalary):#,0.#}");
+                }
+                builder.Append($" {vacancy.Currency}\n");
+            }
+            if (vacancy.Address != null)
+            {
+                builder.Append(vacancy.Address + "\n");
+            }
+            builder.Append($"<i>{ vacancy.Schedule}</i>\n\n");
+
             return builder;
 
         }
