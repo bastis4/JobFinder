@@ -21,7 +21,7 @@ namespace JobFinder
         private long chatId;
         private string messageText;
         private static readonly int _messageLimit = 4090;
-
+        private readonly int _delayMsec = 1500;
         public async Task<string> GetKeywordsToSearchForVacancies()
         {
             var receiverOptions = new ReceiverOptions
@@ -79,10 +79,8 @@ namespace JobFinder
         {
             var textToSend = new StringBuilder();
             var listOfTasks = new List<Task<Message>>();
-            foreach (var vacancy in newVacancies)
-            {
-                Console.WriteLine(vacancy.HhId);
-            }
+           
+            Console.WriteLine(newVacancies.Count);
 
             Task<Message> prevTask = default;
 
@@ -101,7 +99,7 @@ namespace JobFinder
                 if (textToSend.Length > _messageLimit - stringToCheck.Length || i - 1 == newVacancies.Count - 1)
                 {
                     var msg = textToSend.ToString();
-                    var delay = 500;
+                    var delay = _delayMsec;
 
                     if (prevTask != default)
                     {
@@ -116,10 +114,10 @@ namespace JobFinder
 
                     listOfTasks.Add(prevTask);
 
-                   /* using (StreamWriter writetext = new StreamWriter("D:\\AMD\\gg.txt", append: true))
+                    using (StreamWriter writetext = new StreamWriter("D:\\AMD\\gg.txt", append: true))
                     {
                         writetext.WriteLine(textToSend);
-                    }*/
+                    }
                     textToSend.Clear();
                 }
             }
