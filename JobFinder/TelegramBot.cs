@@ -23,6 +23,7 @@ namespace JobFinder
         private string messageText;
         private static readonly int _messageLimit = 4090;
         private readonly int _delayMsec = 1500;
+        private int period;
         
         public async Task<string> GetKeywordsToSearchForVacancies()
         {
@@ -74,7 +75,7 @@ namespace JobFinder
         }
         private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-
+            var telegramMessage = "";
             if (update.Type == UpdateType.Message)
             {
                 var message = update.Message;
@@ -86,18 +87,20 @@ namespace JobFinder
             }
             if (update.Type == UpdateType.CallbackQuery)
             {
-                string codeOfButton = update.CallbackQuery.Data;
+                var codeOfButton = update.CallbackQuery.Data;
+                
                 if (codeOfButton == "month")
                 {
+                    period = 30;
                     Console.WriteLine("Выбран месяц");
-                    //string telegramMessage = "Вы выбрали месяц";
-                    //await botClient.SendTextMessageAsync(chatId: update.CallbackQuery.Message.Chat.Id, telegramMessage, parseMode: ParseMode.Html);
+                    telegramMessage = "Вы выбрали месяц.";
                 }
                 if (codeOfButton == "fortnight")
                 {
+                    period = 15;
                     Console.WriteLine("Выбрано 2 недели");
-                    string telegramMessage = "Вы выбрали 2 недели \n что ищем?";
-                    await botClient.SendTextMessageAsync(chatId: update.CallbackQuery.Message.Chat.Id, telegramMessage, parseMode: ParseMode.Html);
+                    telegramMessage = "Вы выбрали 2 недели.";
+                 
                     /*InlineKeyboardMarkup inlineKeyBoard = new InlineKeyboardMarkup(
                         new[]
                         {
@@ -109,9 +112,24 @@ namespace JobFinder
 
                         });
                     await bot.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, telegramMessage, replyMarkup: inlineKeyBoard, parseMode: Telegram.Bot.Types.Enums.ParseMode.Html);*/
-                    return;
                 }
+                if (codeOfButton == "week")
+                {
+                    period = 7;
+                    Console.WriteLine("Выбрана неделя");
+                    telegramMessage = "Вы выбрали неделю.";
+                }
+                if (codeOfButton == "day")
+                {
+                    period = 1;
+                    Console.WriteLine("Выбран день");
+                    telegramMessage = "Вы выбрали день.";
+                }
+                telegramMessage += "\nКакую работу для вас найти?";
+                await botClient.SendTextMessageAsync(chatId: update.CallbackQuery.Message.Chat.Id, telegramMessage, parseMode: ParseMode.Html);
+                return;
             }
+            //await botClient.SendTextMessageAsync(chatId: update.CallbackQuery.Message.Chat.Id, telegramMessage, parseMode: ParseMode.Html);
             if (update.Type == UpdateType.Message)
             {
                 chatId = update.Message.Chat.Id;
