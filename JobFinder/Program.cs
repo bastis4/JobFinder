@@ -11,13 +11,14 @@ namespace JobFinder
         public static async Task Main()
         {
             var telegram = new TelegramBot();
+            var userSearchCriteria = await telegram.GetKeywordsToSearchForVacancies();
             var searchVacancy = new VacancyQuery()
             {
-                Description = await telegram.GetKeywordsToSearchForVacancies()
+                Description = userSearchCriteria.Item1
             };
-
+            var userSearchPeriod = userSearchCriteria.Item2;
             var apiClient = new HhApiClient();
-            var allVacancies = apiClient.GetVacancies(searchVacancy);
+            var allVacancies = apiClient.GetVacancies(searchVacancy, userSearchPeriod);
 
             var repository = new VacancyRepository(_connectionString);
 

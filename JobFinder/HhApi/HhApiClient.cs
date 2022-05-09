@@ -18,10 +18,10 @@ namespace JobFinder.HhApi
         private static readonly int _pagesLimit = 200;
 
         #region Methods
-        public List<Vacancy> GetVacancies(VacancyQuery query)
+        public List<Vacancy> GetVacancies(VacancyQuery query, int userSearchPeriod)
         {
             var endTime = DateTime.Now;
-            var startTime = DateTime.Now.AddDays(-30);
+            var startTime = DateTime.Now.AddDays(-userSearchPeriod);
 
             var vacancies = new List<Vacancy>();
             query.PerPage = _resultsPerPage.ToString();

@@ -25,7 +25,7 @@ namespace JobFinder
         private readonly int _delayMsec = 1500;
         private int period;
         
-        public async Task<string> GetKeywordsToSearchForVacancies()
+        public async Task<(string, int)> GetKeywordsToSearchForVacancies()
         {
             var receiverOptions = new ReceiverOptions
             {
@@ -42,12 +42,12 @@ namespace JobFinder
                 cancellationToken: cts.Token
             );
 
-            return messageText;
+            return (messageText, period);
         }
 
-       public static async void SendInline(ITelegramBotClient botClient, long chatId, CancellationToken cancellationToken)
+       public static async void SendInlinePeriodOptions(ITelegramBotClient botClient, long chatId, CancellationToken cancellationToken)
         {
-            InlineKeyboardMarkup inlineKeyboard = new InlineKeyboardMarkup(
+            InlineKeyboardMarkup periodOptions = new InlineKeyboardMarkup(
                 new[]
                 {
                     new[]
@@ -70,7 +70,7 @@ namespace JobFinder
             Message sentMessage = await botClient.SendTextMessageAsync(
                 chatId: chatId,
                 text: "Пожалуйста, выберите временной интервал: ",
-                replyMarkup: inlineKeyboard,
+                replyMarkup: periodOptions,
                 cancellationToken: cancellationToken);
         }
         private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -81,7 +81,7 @@ namespace JobFinder
                 var message = update.Message;
                 if (message.Text.ToLower() == "/start")
                 {
-                    SendInline(botClient: botClient, chatId: message.Chat.Id, cancellationToken: cancellationToken);
+                    SendInlinePeriodOptions(botClient: botClient, chatId: message.Chat.Id, cancellationToken: cancellationToken);
                     return;
                 }
             }
@@ -207,10 +207,10 @@ namespace JobFinder
                     }
 
                     listOfTasks.Add(prevTask);
-                    /*using (StreamWriter writetext = new StreamWriter("D:\\AMD\\gg.txt", append: true))
+                    using (StreamWriter writetext = new StreamWriter("D:\\AMD\\gg.txt", append: true))
                     {
                         writetext.WriteLine(textToSend);
-                    }*/
+                    }
                     textToSend.Clear();
                 }
             }
@@ -242,7 +242,8 @@ namespace JobFinder
             {
                 builder.Append(vacancy.Address + "\n");
             }
-            builder.Append($"<i>{ vacancy.Schedule}</i>\n\n");
+            builder.Append($"{vacancy.PublishDate}" + "\n");
+            builder.Append($"<i>{vacancy.Schedule}</i>\n\n");
             return builder;
         }
     }
