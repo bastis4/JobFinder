@@ -16,7 +16,7 @@ namespace JobFinder
 {
     public class TelegramBot : IMessenger
     {
-        private static readonly string _token = "5134107568:AAEhKE0fybgOLWM_qz5r8WEX9NscwZhxn8g";
+        private static readonly string _token = "xxx";
         private static TelegramBotClient bot = new TelegramBotClient(_token);
         private static CancellationTokenSource cts = new CancellationTokenSource();
         private long chatId;
